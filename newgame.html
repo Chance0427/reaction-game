@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reaction Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        button {
+            font-size: 2em;
+            margin: 1em;
+        }
+        #timer {
+            font-size: 1.5em;
+        }
+    </style>
+    <script>
+        let startTime;
+        let endTime;
+        let started = false;
+        let ended = false;
+        
+        function startGame() {
+            if (!started) {
+                started = true;
+                ended = false;
+                document.getElementById("startButton").disabled = true;
+                document.body.style.backgroundColor = "white";
+                setTimeout(() => {
+                    startTime = new Date();
+                    document.body.style.backgroundColor = "orange";
+                }, Math.random() * 5000 + 1000);
+            }
+        }
+        
+        function endGame() {
+            if (started && !ended) {
+                endTime = new Date();
+                const reactionTime = (endTime - startTime) / 1000;
+                document.getElementById("timer").innerText = "Reaction Time: " + reactionTime.toFixed(2) + " seconds";
+                document.body.style.backgroundColor = "white";
+                started = false;
+                ended = true;
+                document.getElementById("startButton").disabled = false;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Reaction Game</h1>
+    <p>Press "Start" and wait for the background color to change. As soon as it changes, press "End".</p>
+    <button id="startButton" onclick="startGame()">Start</button>
+    <button onclick="endGame()">End</button>
+    <p id="timer">Reaction Time: - seconds</p>
+</body>
+</html>
